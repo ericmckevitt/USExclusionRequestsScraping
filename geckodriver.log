@@ -1,0 +1,18 @@
+1665818548776	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\19729\\AppData\\Local\\Temp\\rust_mozprofile46jd8Q"
+1665818549763	Marionette	INFO	Marionette enabled
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\19729\\AppData\\Local\\Temp\\rust_mozprofile46jd8Q\\search.json.mozlz4", (void 0)))
+1665818551831	Marionette	INFO	Listening on port 62115
+1665818551967	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1665818631211	Marionette	INFO	Stopped listening on port 62115
+
+###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
+
+1665818682740	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\19729\\AppData\\Local\\Temp\\rust_mozprofileafx2Rw"
+*** You are running in headless mode.
+1665818683095	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\19729\\AppData\\Local\\Temp\\rust_mozprofileafx2Rw\\search.json.mozlz4", (void 0)))
+1665818684171	Marionette	INFO	Listening on port 62575
+1665818684298	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
