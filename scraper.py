@@ -7,7 +7,7 @@ import pandas as pd
 from lxml import etree
 import cleanData as cd
 
-DEBUG = True
+DEBUG = False
 
 num_records = 3
 
@@ -167,6 +167,12 @@ element_xpath = {
         "Identify the non-U.S. producer": "/html/body/div[2]/div/div/form/div/div[2]/div[2]/div[11]/div[1]/input",
         "Identify the country where the organization is headquartered2": "/html/body/div[2]/div/div/form/div/div[2]/div[2]/div[11]/div[2]/input",
         "Comments3": "/html/body/div[2]/div/div/form/div/div[2]/div[2]/div[11]/div[3]/textarea"
+    }, 
+    "Exclusion Request Product Information": {
+        "For this single Exclusion Request, provide a full, complete description of the product in the space provided below.See explanation below. The product for which an Exclusion is being requested is defined as follows:": "/html/body/div[2]/div/div/form/div/div[3]/div[1]/div/div[1]/textarea",
+        "Comments": "/html/body/div[2]/div/div/form/div/div[3]/div[1]/div/div[2]/textarea",
+        "Identify the standards organizations that have set specifications for the product type that is the subject of this Exclusion Request, and provide the reference designation(s) for the identified standards organization(s), (e.g., ASTM A108-13):": "class|productstandardstable/table",
+        "Identify the classification and properties of the product covered under this Exclusion Request. Other classification or properties may be described in the textboxes below. (Select all that apply)": "xpath|/html/body/div[2]/div/div/form/div/div[3]/div[2]/div[2]/div[2]/table[1]/table"
     }
 }
 
@@ -209,9 +215,21 @@ for index, row in df.iterrows():
                 print(f"{element}:", dom.xpath(f'{xpath}')[0].text)
 
             elif xpath.endswith('table'):
-                class_name = xpath.split('|')[1].split('/')[0]
-                table = soup.find('table', {'class': class_name})
-                result = cd.cleanDataByClassName(table, class_name)
+                result = ""
+                prefix = xpath.split('|')[0]
+                identifier = xpath.split('|')[1]
+
+                # remove everything after the last / in identifier
+                identifier = identifier[:identifier.rfind('/')]
+                
+                # if the prefix contains "class" 
+                if prefix == "class":
+                    table = soup.find('table', {'class': identifier})
+                    result = cd.cleanDataByClassName(table, identifier)
+                elif prefix == 'xpath':
+                    table = soup.find('table', {'xpath': prefix})
+                    table = dom.xpath(f'{identifier}')[0]
+                    result = cd.cleanDataByXpath(table, identifier)
                 print(f"{element}:", result)
 
             else:
